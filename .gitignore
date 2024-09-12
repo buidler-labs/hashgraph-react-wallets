@@ -6,3 +6,6 @@ lib/
 /**/*/node_modules/
 *.tgz
 untracked/
+
+docs/.vitepress/dist
+docs/.vitepress/cache
