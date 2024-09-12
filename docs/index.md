@@ -7,7 +7,7 @@ hero:
   text: "React Wallets"
   tagline: A lightweight library that aims to provide an easier way to interact with the <a class="link" href="https://hedera.com/" target="_blank">Hedera</a> network from a UI perspective
   image:
-    src: /assets/bdl-logo.png
+    src: assets/bdl-logo.png
     alt: VitePress
   actions:
     - theme: brand
