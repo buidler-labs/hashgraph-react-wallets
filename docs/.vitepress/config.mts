@@ -51,5 +51,6 @@ export default defineConfig({
       copyright: 'Copyright © 2024-present',
     },
   },
-  ignoreDeadLinks: true
+  ignoreDeadLinks: true,
+  base: '/hashgraph-react-wallets/'
 })
