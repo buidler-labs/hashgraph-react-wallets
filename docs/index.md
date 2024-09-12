@@ -16,9 +16,6 @@ hero:
     - theme: alt
       text: Github
       link: https://github.com/buidler-labs/hashgraph-react-wallets
-    - theme: alt
-      text: API Examples
-      link: /api-examples
 
 features:
   - title: Native + EVM Wallets Integration
