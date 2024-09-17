@@ -1,6 +1,6 @@
 # Getting Started
 
-Welcome to the Hashgraph React Wallets project, a lightweight library that aims to provide an easier way to interact with the [Hedera](https://hedera.com/) network from a UI perspective.
+Meet Hashgraph React Wallets, a minimalistic library that makes it easier to connect and interact with the <a class="link" href="https://hedera.com/" target="_blank">Hedera</a> network through your UI.
 
 ## Overview
 

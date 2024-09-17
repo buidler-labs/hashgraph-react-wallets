@@ -5,7 +5,7 @@ layout: home
 hero:
   name: 'Hashgraph'
   text: 'React Wallets'
-  tagline: A lightweight library that aims to provide an easier way to interact with the <a class="link" href="https://hedera.com/" target="_blank">Hedera</a> network from a UI perspective
+  tagline: Meet Hashgraph React Wallets, a minimalistic library that makes it easier to connect and interact with the <a class="link" href="https://hedera.com/" target="_blank">Hedera</a> network through your UI.
   image:
     src: assets/bdl-logo.png
     alt: VitePress
@@ -20,10 +20,10 @@ hero:
 features:
   - title: Hedera Wallet Connect
     icon: ✨
-    details: Easily connect to Hedera Wallet Connect compliant wallets
+    details: Easily connect to Hedera Wallet Connect compliant wallets.
   - title: Native + EVM Integration
     icon: 🔗
-    details: Supports both native and EVM-compatible wallets
+    details: Supports both native and EVM-compatible wallets.
   - title: React hooks included
     icon: 🪝
     details: Convenient React hooks for seamless integration.
