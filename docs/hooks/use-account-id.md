@@ -40,7 +40,9 @@ interface IUseAccountIdProps<Connector> {
 }
 ```
 
-#### - connector: `HWCConnector`
+#### - connector
+* Type: `HWBridgeConnector`
+* Required: `false`
 
 Request the account id for a specific wallet when [`multiSession={true}`](/configuration.html#%F0%9F%94%80-multisession)
 
@@ -55,7 +57,11 @@ const App = () => {
 }
 ```
 
-#### - autoFetch: `boolean`
+---
+
+#### - autoFetch
+* Type: `boolean`
+* Required: `false`
 
 ```tsx
 import { useWallet, useAccountId } from '@buidlerlabs/hashgraph-react-wallets'
@@ -67,8 +73,6 @@ const App = () => {
   return <span>{accountId ?? '-'}</span>
 }
 ```
-
-###
 
 ## Return Type
 

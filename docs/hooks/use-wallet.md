@@ -22,7 +22,9 @@ const App = () => {
 
 ## Parameters
 
-#### - connector: `HWCConnector`
+#### - connector
+* Type: `HWBridgeConnector`
+* Required: `false`
 
 Request the current state for a specific wallet when [`multiSession={true}`](/configuration.html#%F0%9F%94%80-multisession)
 

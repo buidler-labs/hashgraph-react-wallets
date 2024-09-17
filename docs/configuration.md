@@ -4,7 +4,7 @@ outline: deep
 
 # Configuration
 
-## Wrap you app
+## Wrap Your App
 
 You just need to:
 

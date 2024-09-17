@@ -7,13 +7,13 @@ import { Abi } from 'viem'
 import { AccountId, ContractId, TokenId } from '@hashgraph/sdk'
 import { HWBridgeQueryKeys } from '../constants'
 
-interface IUseBalanceProps<Connector> {
+interface IUseApproveTokenNftAllowanceProps<Connector> {
   connector?: Connector | null
   abi?: Abi
 }
 
 export function useApproveTokenNftAllowance<TConnector extends HWBridgeConnector>(
-  props?: IUseBalanceProps<TConnector>,
+  props?: IUseApproveTokenNftAllowanceProps<TConnector>,
 ) {
   const { connector, abi } = props || {}
   const wallet = useWallet(connector)

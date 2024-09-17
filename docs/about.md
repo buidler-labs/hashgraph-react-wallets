@@ -1,6 +1,6 @@
 # About
 
-## The idea
+## The Idea
 
 The development of the **Hashgraph React Wallets** library gained momentum with Hedera's network adaptation to become EVM-compatible.
 

@@ -5,12 +5,12 @@ import { useWallet } from './useWallet'
 import { useQuery } from '@tanstack/react-query'
 import { HWBridgeQueryKeys } from '../constants'
 
-interface IuseHNSProps<Connector> {
+interface IUseHNSProps<Connector> {
   connector?: Connector | null
   autoFetch?: boolean
 }
 
-export function useHNS<TConnector extends HWBridgeConnector>(props?: IuseHNSProps<TConnector>) {
+export function useHNS<TConnector extends HWBridgeConnector>(props?: IUseHNSProps<TConnector>) {
   const wallet = useWallet(props?.connector)
   const config = useConfig()
   const enabled = Boolean(wallet?.signer && (props?.autoFetch ?? true))

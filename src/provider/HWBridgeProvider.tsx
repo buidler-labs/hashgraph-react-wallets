@@ -14,7 +14,7 @@ interface IProps {
   metadata: SignClientTypes.Metadata
   projectId?: string
   defaultConnector?: HWBridgeConnector
-  strategies: ConnectionStrategy[]
+  strategies?: ConnectionStrategy[]
   connectors: (HWBridgeConnector | [HWBridgeConnector, ConnectorConfig])[]
   chains: Chain[]
   multiSession?: boolean

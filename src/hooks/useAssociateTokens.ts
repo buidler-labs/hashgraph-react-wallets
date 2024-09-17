@@ -6,12 +6,12 @@ import { useConfig } from 'wagmi'
 import { Abi } from 'viem'
 import { HWBridgeQueryKeys } from '../constants'
 
-interface IUseBalanceProps<Connector> {
+interface IUseAssociateTokensProps<Connector> {
   connector?: Connector | null
   abi?: Abi
 }
 
-export function useAssociateTokens<TConnector extends HWBridgeConnector>(props?: IUseBalanceProps<TConnector>) {
+export function useAssociateTokens<TConnector extends HWBridgeConnector>(props?: IUseAssociateTokensProps<TConnector>) {
   const { connector, abi } = props || {}
   const wallet = useWallet(connector)
   const config = useConfig()

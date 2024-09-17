@@ -106,6 +106,6 @@ const Wallet = () => {
 }
 ```
 
-## What's next?
+## What's Next?
 
 Checkout our [`guides`](/guides/connect-wallet) and discover how to enhance the [`configuration`](/configuration) or use our built-in collection of **React Hooks**
