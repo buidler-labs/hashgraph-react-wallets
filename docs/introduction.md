@@ -68,7 +68,7 @@ const ReactWalletsProvider = ({ children }) => {
 }
 ```
 
-At this point you have configured the dApp to use [Hashpack](https://www.hashpack.app/) and [Kabila](https://www.kabila.app/wallet) wallets on Hedera Testnet chain, but there are much more configuration options. Please see [`Configuration` docs](/api-examples)
+At this point you have configured the dApp to use [Hashpack](https://www.hashpack.app/) and [Kabila](https://www.kabila.app/wallet) wallets on Hedera Testnet chain, but there are much more configuration options. Please see [`Configuration` docs](/configuration)
 
 ## Basic Usage
 
