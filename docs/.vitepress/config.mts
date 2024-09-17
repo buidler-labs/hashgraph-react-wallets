@@ -2,6 +2,7 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  head: [['link', { rel: 'icon', href: '/hashgraph-react-wallets/favicon.ico' }]],
   title: 'Hashgraph React Wallets',
   description:
     'A lightweight library that aims to provide an easier way to interact with the hedera network from a UI perspective',
