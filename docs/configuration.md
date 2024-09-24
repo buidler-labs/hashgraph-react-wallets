@@ -148,7 +148,7 @@ export default {
 - **Type**: `boolean`
 - **Required**: `false`
 - **Default**: `false`
-- **Description**: Allows your dApp to connect multiple wallets at the same time.
+- **Description**: Allows your dApp to connect multiple wallets at the same time `in a one wallet per connector manner`.
 
 ::: tip
 If this is enabled, you have to specify the desired `connector` whenever you use a hook.

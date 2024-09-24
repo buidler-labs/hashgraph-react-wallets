@@ -2,7 +2,7 @@
 
 Our collection of [`React Hooks`](/hooks/) aims to cover all developer's needs for interacting with the Hedera network, though there are a few exceptions that can be easily handled.
 
-In the following examples, we demonstrate two ways to execute one of the most popular transactions on the network: the `TokenAssociateTransaction`.
+The following examples illustrate, for comparison reasons of verbosity, 2 ways of doing a token associate transaction.
 
 ### Using `useAssociateTokens` hook:
 

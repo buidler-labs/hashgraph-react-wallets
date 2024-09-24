@@ -7,8 +7,3 @@ The implementation is straightforward, as its main responsibility is to initiali
 ::: info
 It requires a `projectId` that needs to be configured on `<HWBridgeProvider>`. Read more about the [`configuration`](/configuration.html#%F0%9F%8E%AB-projectid)
 :::
-
-### Not Enough?
-
-You can create your own connection strategy according to your preferences. [Read more](/strategies/create-connection-strategy)
-

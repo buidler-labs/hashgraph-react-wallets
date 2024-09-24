@@ -9,4 +9,4 @@ The library provides the following internally built and ready-to-use connection 
 
 ### Not Enough?
 
-You can create your own connection strategy according to your preferences. [Read more](/strategies/create-connection-strategy)
+You can [create your own](/strategies/create-connection-strategy).
