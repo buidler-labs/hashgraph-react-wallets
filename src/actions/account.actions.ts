@@ -12,6 +12,9 @@ import { queryMirror } from './mirror.actions'
 import { MirrorBalancesResponse } from './types'
 import { HederaSignerType } from '../hWBridge/types'
 import { chainToNetworkName } from '../utils'
+import { PublicKey } from '@hashgraph/sdk'
+import { signMessage as wagmiSignMessage } from 'wagmi/actions'
+import { hexToBytes } from 'viem'
 
 export const getAccountId = async <TWallet extends HWBridgeSession>({
   wallet,
@@ -24,26 +27,37 @@ export const getAccountId = async <TWallet extends HWBridgeSession>({
   if (wallet.connector.type === ConnectorType.HEDERA)
     return (wallet.signer as HederaSignerType).getAccountId().toString()
 
-  try {
-    const wagmiAddress = wagmi_getAccount(config).address || null
+  const accountMirrorResponse = await _getHederaAccountInfo({ wallet, 
+    idOrAliasOrEvmAddress: wagmi_getAccount(config).address
+   });
 
-    if (!wagmiAddress) return null
-
-    const accountMirrorResponse = await queryMirror<{ account: string }[]>({
-      path: `/api/v1/accounts/${wagmiAddress}`,
-      queryKey: ['getHederaAccountId'],
-      options: { network: chainToNetworkName(wallet.connector.chain), firstOnly: true },
-    })
-
-    if (!accountMirrorResponse?.[0].account) {
-      return wagmiAddress
-    }
-
-    return accountMirrorResponse[0].account
-  } catch (e) {
-    console.error(e)
-    return null
+  if (!accountMirrorResponse) {
+    return wagmi_getAccount(config).address || null
   }
+  return accountMirrorResponse.account
+}
+
+export const getPublicKey = async <TWallet extends HWBridgeSession>({
+  wallet,
+  config,
+}: {
+  wallet: TWallet
+  config: Config
+}): Promise<PublicKey | null> => {
+  let accountIdentifier: string | `0x${string}` | undefined = '';
+
+  if (!wallet.signer) return null
+
+  if (wallet.connector.type === ConnectorType.HEDERA) {
+    // Note: We can't use DAppSigner.getAccountKey since as of v1.3.4, it is not implemented ( see https://github.com/hashgraph/hedera-wallet-connect/blob/b3600fd12b44445f5301d664c815cb0666c842fa/src/lib/dapp/DAppSigner.ts#L115 )
+    accountIdentifier = (wallet.signer as HederaSignerType).getAccountId().toString()
+  } else if (wallet.connector.type == ConnectorType.ETHEREUM) {
+    accountIdentifier = wagmi_getAccount(config).address 
+  }
+
+  const accountMirrorResponse = await _getHederaAccountInfo({ wallet, idOrAliasOrEvmAddress: accountIdentifier })
+
+  return !accountMirrorResponse ? null : PublicKey.fromString(accountMirrorResponse?.key.key!)
 }
 
 export const getEvmAddress = async <TWallet extends HWBridgeSession>({
@@ -125,4 +139,56 @@ export const getBalance = async <TWallet extends HWBridgeSession>({
   }
 
   return balance
+}
+
+export const signAuthentication = async <TWallet extends HWBridgeSession>({
+  wallet,
+  config,
+  message
+}: {
+  wallet: TWallet
+  config: Config
+  message: string
+}): Promise<Uint8Array | null> => {
+  if (!wallet.signer) return null
+
+  if (wallet.connector.type === ConnectorType.HEDERA) {
+    const concreteSigner = (wallet.signer as HederaSignerType)
+    const hederaSignatures = await concreteSigner.sign([ new TextEncoder().encode(message) ])
+
+    return hederaSignatures[0].signature
+  } else if (wallet.connector.type == ConnectorType.ETHEREUM) {
+    const rawHexEncodedSignature = await wagmiSignMessage(config, { message });
+
+    return hexToBytes(rawHexEncodedSignature)
+  }
+
+  return Promise.reject(`Unsuported connector type '${wallet.connector.type}'`);
+}
+
+async function _getHederaAccountInfo <TWallet extends HWBridgeSession> ({
+  wallet,
+  idOrAliasOrEvmAddress,
+}: {
+  wallet: TWallet
+  idOrAliasOrEvmAddress?: string
+}) {
+  try {
+    if (!idOrAliasOrEvmAddress) return null
+
+    const accountMirrorResponse = await queryMirror<{ account: string, key: { _type: "ECDSA_SECP256K1" | "ED25519" | "ProtobufEncoded", key: string } }[]>({
+      path: `/api/v1/accounts/${idOrAliasOrEvmAddress}`,
+      queryKey: ['getHederaAccount'],
+      options: { network: chainToNetworkName(wallet.connector.chain), firstOnly: true },
+    })
+
+    if (!accountMirrorResponse?.[0] || JSON.stringify(accountMirrorResponse).indexOf("Not found") != -1) {
+      return null
+    }
+
+    return accountMirrorResponse[0]
+  } catch (e) {
+    console.error(e)
+    return null
+  } 
 }

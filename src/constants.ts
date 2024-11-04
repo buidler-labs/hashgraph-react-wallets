@@ -33,6 +33,7 @@ export enum HWBridgeQueryKeys {
   APPROVE_TOKENS_NFT_ALLOWANCE = 'approveTokensNftAllowance',
   ASSOCIATE_TOKENS = 'associateTokens',
   GET_HNS = 'getHns',
+  SIGN_AUTHENTICATION = 'signAuthentication',
   SWITCH_CHAIN = 'switchChain',
   WATCH_TRANSACTION_RECEIPT = 'watchTransactionReceipt',
 }

@@ -6,6 +6,7 @@ Various hooks have been coded and made available for usage:
 - [`useApproveTokenAllowance()`](/hooks/use-approve-token-allowance)
 - [`useApproveTokenNftAllowance()`](/hooks/use-approve-token-nft-allowance)
 - [`useAssociateTokens()`](/hooks/use-associate-tokens)
+- [`useAuthSignature()`](/hooks/use-auth-signature)
 - [`useBalance()`](/hooks/use-balance)
 - [`useChain()`](/hooks/use-chain)
 - [`useConnectedWallets()`](/hooks/use-connected-wallets)
