@@ -1,4 +1,5 @@
 export type * from './types'
+export * from './useAuthSignature'
 export * from './useHWBridge'
 export * from './useWallet'
 export * from './useConnectedWallets'
