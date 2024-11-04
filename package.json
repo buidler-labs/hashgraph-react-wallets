@@ -40,6 +40,7 @@
     "build:esm": "babel src --extensions .ts,.tsx --out-dir lib --source-maps",
     "copy-assets": "copyfiles -f src/assets/* lib/assets",
     "clean": "rimraf lib",
+    "demo": "cd demo && npm run dev",
     "lint": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\"",
     "prettier": "prettier --write \"{src,tests,example/src}/**/*.{js,ts,jsx,tsx}\"",
     "test": "jest --config jestconfig.json",
