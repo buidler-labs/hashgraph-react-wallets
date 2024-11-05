@@ -10,7 +10,7 @@ import { SignClientTypes } from '@walletconnect/types'
 
 interface IProps {
   children: ReactNode | ReactNode[]
-  LoadingFallback?: () => JSX.Element
+  LoadingFallback?: (...args: any) => JSX.Element
   metadata: SignClientTypes.Metadata
   projectId?: string
   defaultConnector?: HWBridgeConnector

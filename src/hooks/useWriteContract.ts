@@ -11,7 +11,7 @@ interface IUseWriteContractProps<Connector> {
   connector?: Connector | null
 }
 
-export function useWriteContract<TConnector extends HWBridgeConnector>(props: IUseWriteContractProps<TConnector>) {
+export function useWriteContract<TConnector extends HWBridgeConnector>(props?: IUseWriteContractProps<TConnector>) {
   const { connector } = props || {}
   const wallet = useWallet(connector)
   const config = useConfig()
@@ -24,7 +24,7 @@ export function useWriteContract<TConnector extends HWBridgeConnector>(props: IU
     contractId: ContractId | string
     abi: abi
     functionName: functionName
-    metaArgs?: {
+    metaArgs?: Partial<{
       gas: Hbar | number
       amount: number
       maxTransactionFee: Hbar | number
@@ -32,7 +32,7 @@ export function useWriteContract<TConnector extends HWBridgeConnector>(props: IU
       transactionId: TransactionId
       transactionMemo: string
       transactionValidDuration: number
-    }
+    }>
     args: args
   }) => {
     return tanstackQueryClient.fetchQuery({

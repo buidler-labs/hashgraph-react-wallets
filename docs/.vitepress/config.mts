@@ -83,6 +83,7 @@ export default defineConfig({
           { text: 'useApproveTokenAllowance', link: '/hooks/use-approve-token-allowance' },
           { text: 'useApproveTokenNftAllowance', link: '/hooks/use-approve-token-nft-allowance' },
           { text: 'useAssociateTokens', link: '/hooks/use-associate-tokens' },
+          { text: 'useAuthSignature', link: '/hooks/use-auth-signature' },
           { text: 'useBalance', link: '/hooks/use-balance' },
           { text: 'useChain', link: '/hooks/use-chain' },
           { text: 'useConnectedWallets', link: '/hooks/use-connected-wallets' },

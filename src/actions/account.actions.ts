@@ -27,9 +27,10 @@ export const getAccountId = async <TWallet extends HWBridgeSession>({
   if (wallet.connector.type === ConnectorType.HEDERA)
     return (wallet.signer as HederaSignerType).getAccountId().toString()
 
-  const accountMirrorResponse = await _getHederaAccountInfo({ wallet, 
-    idOrAliasOrEvmAddress: wagmi_getAccount(config).address
-   });
+  const accountMirrorResponse = await _getHederaAccountInfo({
+    wallet,
+    idOrAliasOrEvmAddress: wagmi_getAccount(config).address,
+  })
 
   if (!accountMirrorResponse) {
     return wagmi_getAccount(config).address || null
@@ -44,7 +45,7 @@ export const getPublicKey = async <TWallet extends HWBridgeSession>({
   wallet: TWallet
   config: Config
 }): Promise<PublicKey | null> => {
-  let accountIdentifier: string | `0x${string}` | undefined = '';
+  let accountIdentifier: string | `0x${string}` | undefined = ''
 
   if (!wallet.signer) return null
 
@@ -52,7 +53,7 @@ export const getPublicKey = async <TWallet extends HWBridgeSession>({
     // Note: We can't use DAppSigner.getAccountKey since as of v1.3.4, it is not implemented ( see https://github.com/hashgraph/hedera-wallet-connect/blob/b3600fd12b44445f5301d664c815cb0666c842fa/src/lib/dapp/DAppSigner.ts#L115 )
     accountIdentifier = (wallet.signer as HederaSignerType).getAccountId().toString()
   } else if (wallet.connector.type == ConnectorType.ETHEREUM) {
-    accountIdentifier = wagmi_getAccount(config).address 
+    accountIdentifier = wagmi_getAccount(config).address
   }
 
   const accountMirrorResponse = await _getHederaAccountInfo({ wallet, idOrAliasOrEvmAddress: accountIdentifier })
@@ -144,7 +145,7 @@ export const getBalance = async <TWallet extends HWBridgeSession>({
 export const signAuthentication = async <TWallet extends HWBridgeSession>({
   wallet,
   config,
-  message
+  message,
 }: {
   wallet: TWallet
   config: Config
@@ -153,20 +154,20 @@ export const signAuthentication = async <TWallet extends HWBridgeSession>({
   if (!wallet.signer) return null
 
   if (wallet.connector.type === ConnectorType.HEDERA) {
-    const concreteSigner = (wallet.signer as HederaSignerType)
-    const hederaSignatures = await concreteSigner.sign([ new TextEncoder().encode(message) ])
+    const concreteSigner = wallet.signer as HederaSignerType
+    const hederaSignatures = await concreteSigner.sign([new TextEncoder().encode(message)])
 
     return hederaSignatures[0].signature
   } else if (wallet.connector.type == ConnectorType.ETHEREUM) {
-    const rawHexEncodedSignature = await wagmiSignMessage(config, { message });
+    const rawHexEncodedSignature = await wagmiSignMessage(config, { message })
 
     return hexToBytes(rawHexEncodedSignature)
   }
 
-  return Promise.reject(`Unsuported connector type '${wallet.connector.type}'`);
+  return Promise.reject(`Unsuported connector type '${wallet.connector.type}'`)
 }
 
-async function _getHederaAccountInfo <TWallet extends HWBridgeSession> ({
+async function _getHederaAccountInfo<TWallet extends HWBridgeSession>({
   wallet,
   idOrAliasOrEvmAddress,
 }: {
@@ -176,13 +177,15 @@ async function _getHederaAccountInfo <TWallet extends HWBridgeSession> ({
   try {
     if (!idOrAliasOrEvmAddress) return null
 
-    const accountMirrorResponse = await queryMirror<{ account: string, key: { _type: "ECDSA_SECP256K1" | "ED25519" | "ProtobufEncoded", key: string } }[]>({
+    const accountMirrorResponse = await queryMirror<
+      { account: string; key: { _type: 'ECDSA_SECP256K1' | 'ED25519' | 'ProtobufEncoded'; key: string } }[]
+    >({
       path: `/api/v1/accounts/${idOrAliasOrEvmAddress}`,
       queryKey: ['getHederaAccount'],
       options: { network: chainToNetworkName(wallet.connector.chain), firstOnly: true },
     })
 
-    if (!accountMirrorResponse?.[0] || JSON.stringify(accountMirrorResponse).indexOf("Not found") != -1) {
+    if (!accountMirrorResponse?.[0] || JSON.stringify(accountMirrorResponse).indexOf('Not found') != -1) {
       return null
     }
 
@@ -190,5 +193,5 @@ async function _getHederaAccountInfo <TWallet extends HWBridgeSession> ({
   } catch (e) {
     console.error(e)
     return null
-  } 
+  }
 }

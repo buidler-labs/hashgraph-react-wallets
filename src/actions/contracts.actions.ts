@@ -54,7 +54,7 @@ export const writeContract = async <
     contractId: ContractId | string
     abi: abi
     functionName: functionName
-    metaArgs?: {
+    metaArgs?: Partial<{
       gas: Hbar | number
       amount: number
       maxTransactionFee: Hbar | number
@@ -62,7 +62,7 @@ export const writeContract = async <
       transactionId: TransactionId
       transactionMemo: string
       transactionValidDuration: number
-    }
+    }>
     args: args
   }
 }): Promise<TransactionReceipt | string | null> => {
@@ -105,7 +105,7 @@ export const writeContract = async <
         transaction.setTransactionMemo(metaArgs.transactionMemo)
       }
       if (Number.isInteger(metaArgs.transactionValidDuration)) {
-        transaction.setTransactionValidDuration(metaArgs.transactionValidDuration)
+        transaction.setTransactionValidDuration(metaArgs.transactionValidDuration!)
       }
     }
 

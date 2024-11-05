@@ -62,7 +62,6 @@ const TOKENS_TO_ASSOCIATE = ['0.0.123456']
 
 const App = () => {
   const { signer } = useWallet()
-  const { associateTokens } = useAssociateTokens()
 
   const handleAssociateTokens = async () => {
     const transaction = new TokenAssociateTransaction()
