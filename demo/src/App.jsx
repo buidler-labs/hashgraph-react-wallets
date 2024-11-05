@@ -14,10 +14,8 @@ import {
   HederaMainnet,
   HederaTestnet,
 } from "@buidlerlabs/hashgraph-react-wallets/chains";
-import { HashpackHNSResolver } from "@buidlerlabs/hashgraph-react-wallets/hns-resolvers";
 import Logo from "./assets/react.svg";
 import Workbench from "./Workbench";
-import VeninProvider from "./core/VeninProvider";
 import { Toaster } from "react-hot-toast";
 
 const HEDERA_NETWORK = "mainnet";
@@ -52,10 +50,8 @@ const App = () => {
       debug={false}
     >
       <AppContent>
-        <VeninProvider network={HEDERA_NETWORK}>
-          <Workbench />
-          <Toaster />
-        </VeninProvider>
+        <Workbench />
+        <Toaster />
       </AppContent>
     </HWBridgeProvider>
   );
