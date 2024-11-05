@@ -17,6 +17,23 @@ Together with a connection management system, our solution supports developers b
 
 Full documentation page: [Hashgraph React Wallets - Docs](https://buidler-labs.github.io/hashgraph-react-wallets/)
 
+## Running the demo app
+
+First, you need to create a `.env` file in the `demo` directory, filling in the following values:
+
+```
+DEMO_APP_NAME=
+DEMO_APP_DESCRIPTION=
+DEMO_APP_URL=
+
+DEMO_MAGIC_EMAIL=
+DEMO_MAGIC_PUBLIC_API_KEY=
+
+DEMO_WALLET_CONNECT_PROJECT_ID=
+```
+
+Then do a `npm i` in `demo` to bring in its dependencies and run `npm run demo` from the top level repo path to start the development server.
+
 ## Installation
 
 Simply run the following installation command using your preferred package manager:
