@@ -18,4 +18,5 @@ Various hooks have been coded and made available for usage:
 - [`useTokensBalance()`](/hooks/use-tokens-balance)
 - [`useWatchTransactionReceipt()`](/hooks/use-watch-transaction-receipt)
 - [`useWriteContract()`](/hooks/use-write-contract)
+- [`useReadContract()`](/hooks/use-read-contract)
 - [`useWallet()`](/hooks/use-wallet)

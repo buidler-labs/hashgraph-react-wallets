@@ -16,7 +16,7 @@ const Authentication = () => {
       if (e instanceof UserRefusedToSignAuthError) {
         setSignature("User refused to sign");
       } else {
-        setSignature(e);
+        setSignature(JSON.stringify(e));
       }
     }
   };

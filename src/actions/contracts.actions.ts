@@ -3,11 +3,14 @@ import { HWBridgeSession } from '../hWBridge'
 import { writeContract as wagmi_writeContract } from 'wagmi/actions'
 import {
   Abi,
+  Chain,
   Client,
   ContractFunctionArgs,
   ContractFunctionName,
+  createPublicClient,
   encodeFunctionData,
   fromHex,
+  http,
   getContract as viem_getContract,
 } from 'viem'
 import { ConnectorType } from '../constants'
@@ -36,6 +39,30 @@ export const getContract = async <TWallet extends HWBridgeSession>({
     address,
     client: wallet as unknown as Client,
   })
+}
+
+export const readContract = async <
+  TWallet extends HWBridgeSession,
+  readParameters extends Parameters<ReturnType<typeof createPublicClient>['readContract']>[0],
+>({
+  wallet,
+  parameters,
+  chain,
+}: {
+  wallet: TWallet
+  parameters: readParameters
+  chain?: Chain
+}) => {
+  const _chain = chain ?? wallet.connector?.chain ?? null
+
+  if (!_chain) return null
+
+  const publicClient = createPublicClient({
+    chain: _chain,
+    transport: http(),
+  })
+
+  return await publicClient.readContract(parameters)
 }
 
 export const writeContract = async <

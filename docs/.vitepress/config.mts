@@ -95,6 +95,7 @@ export default defineConfig({
           { text: 'useTokensBalance', link: '/hooks/use-tokens-balance' },
           { text: 'useWatchTransactionReceipt', link: '/hooks/use-watch-transaction-receipt' },
           { text: 'useWriteContract', link: '/hooks/use-write-contract' },
+          { text: 'useReadContract', link: '/hooks/use-read-contract' },
         ],
       },
     ],

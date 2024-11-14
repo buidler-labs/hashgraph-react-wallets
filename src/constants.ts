@@ -29,6 +29,7 @@ export enum HWBridgeQueryKeys {
   GET_CHAIN_ID = 'getChainId',
   GET_CONTRACT = 'getContract',
   WRITE_CONTRACT = 'writeContract',
+  READ_CONTRACT = 'readContract',
   APPROVE_TOKENS_ALLOWANCE = 'approveTokensAllowance',
   APPROVE_TOKENS_NFT_ALLOWANCE = 'approveTokensNftAllowance',
   ASSOCIATE_TOKENS = 'associateTokens',
