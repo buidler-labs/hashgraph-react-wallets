@@ -14,7 +14,7 @@ export function useReadContract<TConnector extends HWBridgeConnector>(props?: IU
   const { connector, chain } = props || {}
   const wallet = useWallet(connector)
 
-  const handleWriteContract = async <
+  const handleReadContract = async <
     readParameters extends Parameters<ReturnType<typeof createPublicClient>['readContract']>[0],
   >(
     parameters: readParameters,
@@ -31,6 +31,6 @@ export function useReadContract<TConnector extends HWBridgeConnector>(props?: IU
   }
 
   return {
-    readContract: handleWriteContract,
+    readContract: handleReadContract,
   }
 }
