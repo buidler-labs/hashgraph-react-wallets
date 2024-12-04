@@ -22,6 +22,7 @@ export enum ConnectionStrategyType {
 }
 
 export enum HWBridgeQueryKeys {
+  ACCOUNT_INFO = 'accountInfo',
   ACCOUNT_ID = 'accountId',
   EVM_ADDRESS = 'evmAddress',
   ACCOUNT_BALANCE = 'accountBalance',
