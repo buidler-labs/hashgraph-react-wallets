@@ -20,7 +20,7 @@ export function useReadContract<TConnector extends HWBridgeConnector>(props?: IU
     parameters: readParameters,
   ) => {
     return tanstackQueryClient.fetchQuery({
-      queryKey: [HWBridgeQueryKeys.READ_CONTRACT, wallet.lastUpdated],
+      queryKey: [HWBridgeQueryKeys.READ_CONTRACT, wallet.lastUpdated, parameters.address, parameters.functionName],
       queryFn: () =>
         readContract({
           wallet,
