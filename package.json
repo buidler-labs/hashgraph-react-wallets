@@ -89,7 +89,7 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "@hashgraph/hedera-wallet-connect": "^1.3.7",
+    "@hashgraph/hedera-wallet-connect": "^1.4.1",
     "@magic-ext/hedera": "^1.0.2",
     "@magic-ext/oauth": "^15.2.0",
     "@tanstack/react-query": "^5.18.1",

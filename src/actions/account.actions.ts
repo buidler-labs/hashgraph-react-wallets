@@ -27,9 +27,9 @@ export const getAccountId = async <TWallet extends HWBridgeSession>({
   if (wallet.connector.type === ConnectorType.HEDERA)
     return (wallet.signer as HederaSignerType).getAccountId().toString()
 
-  const accountMirrorResponse = await _getHederaAccountInfo({
+  const accountMirrorResponse = await getHederaAccountInfo<{ account: string }>({
     wallet,
-    idOrAliasOrEvmAddress: wagmi_getAccount(config).address,
+    config,
   })
 
   if (!accountMirrorResponse) {
@@ -45,19 +45,9 @@ export const getPublicKey = async <TWallet extends HWBridgeSession>({
   wallet: TWallet
   config: Config
 }): Promise<PublicKey | null> => {
-  let accountIdentifier: string | `0x${string}` | undefined = ''
-
-  if (!wallet.signer) return null
-
-  if (wallet.connector.type === ConnectorType.HEDERA) {
-    // Note: We can't use DAppSigner.getAccountKey since as of v1.3.4, it is not implemented ( see https://github.com/hashgraph/hedera-wallet-connect/blob/b3600fd12b44445f5301d664c815cb0666c842fa/src/lib/dapp/DAppSigner.ts#L115 )
-    accountIdentifier = (wallet.signer as HederaSignerType).getAccountId().toString()
-  } else if (wallet.connector.type == ConnectorType.ETHEREUM) {
-    accountIdentifier = wagmi_getAccount(config).address
-  }
-
-  const accountMirrorResponse = await _getHederaAccountInfo({ wallet, idOrAliasOrEvmAddress: accountIdentifier })
-
+  const accountMirrorResponse = await getHederaAccountInfo<{
+    key: { _type: 'ECDSA_SECP256K1' | 'ED25519' | 'ProtobufEncoded'; key: string }
+  }>({ wallet, config })
   return !accountMirrorResponse ? null : PublicKey.fromString(accountMirrorResponse?.key.key!)
 }
 
@@ -155,7 +145,9 @@ export const signAuthentication = async <TWallet extends HWBridgeSession>({
 
   if (wallet.connector.type === ConnectorType.HEDERA) {
     const concreteSigner = wallet.signer as HederaSignerType
-    const hederaSignatures = await concreteSigner.sign([new TextEncoder().encode(message)])
+    const hederaSignatures = await concreteSigner.sign([new TextEncoder().encode(message)], {
+      encoding: 'base64',
+    })
 
     return hederaSignatures[0].signature
   } else if (wallet.connector.type == ConnectorType.ETHEREUM) {
@@ -167,19 +159,25 @@ export const signAuthentication = async <TWallet extends HWBridgeSession>({
   return Promise.reject(`Unsuported connector type '${wallet.connector.type}'`)
 }
 
-async function _getHederaAccountInfo<TWallet extends HWBridgeSession>({
+export const getHederaAccountInfo = async <TData = unknown, TWallet extends HWBridgeSession = HWBridgeSession>({
   wallet,
-  idOrAliasOrEvmAddress,
+  config,
 }: {
   wallet: TWallet
-  idOrAliasOrEvmAddress?: string
-}) {
-  try {
-    if (!idOrAliasOrEvmAddress) return null
+  config: Config
+}) => {
+  if (!wallet.signer) return null
 
-    const accountMirrorResponse = await queryMirror<
-      { account: string; key: { _type: 'ECDSA_SECP256K1' | 'ED25519' | 'ProtobufEncoded'; key: string } }[]
-    >({
+  let idOrAliasOrEvmAddress: string | `0x${string}` | undefined = ''
+
+  if (wallet.connector.type === ConnectorType.HEDERA) {
+    idOrAliasOrEvmAddress = (wallet.signer as HederaSignerType).getAccountId().toString()
+  } else if (wallet.connector.type == ConnectorType.ETHEREUM) {
+    idOrAliasOrEvmAddress = wagmi_getAccount(config).address
+  }
+
+  try {
+    const accountMirrorResponse = await queryMirror<TData[]>({
       path: `/api/v1/accounts/${idOrAliasOrEvmAddress}`,
       queryKey: ['getHederaAccount'],
       options: { network: chainToNetworkName(wallet.connector.chain), firstOnly: true },
