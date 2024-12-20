@@ -3,6 +3,7 @@
 Various hooks have been coded and made available for usage:
 
 - [`useAccountId()`](/hooks/use-account-id)
+- [`useAccountInfo()`](/hooks/use-account-info)
 - [`useApproveTokenAllowance()`](/hooks/use-approve-token-allowance)
 - [`useApproveTokenNftAllowance()`](/hooks/use-approve-token-nft-allowance)
 - [`useAssociateTokens()`](/hooks/use-associate-tokens)
