@@ -80,6 +80,7 @@ export default defineConfig({
         items: [
           { text: 'useWallet', link: '/hooks/use-wallet' },
           { text: 'useAccountId', link: '/hooks/use-account-id' },
+          { text: 'useAccountInfo', link: '/hooks/use-account-info' },
           { text: 'useApproveTokenAllowance', link: '/hooks/use-approve-token-allowance' },
           { text: 'useApproveTokenNftAllowance', link: '/hooks/use-approve-token-nft-allowance' },
           { text: 'useAssociateTokens', link: '/hooks/use-associate-tokens' },

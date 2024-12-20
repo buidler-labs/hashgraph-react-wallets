@@ -34,9 +34,11 @@ class HWCConnector extends HederaConnector {
   }
 
   async _bindEvents() {
-    ;(this._strategy.controller as DAppConnector).onSessionIframeCreated = ({ topic }) => {
-      this._onAutoPairing(this.getSignerForSession(topic) as DAppSigner)
+    ;(this._strategy.controller as DAppConnector).onSessionIframeCreated = (session) => {
+      localStorage.setItem(this._localStorageKey, session.topic)
+      this._onAutoPairing(this.getSignerForSession(session.topic) as DAppSigner)
     }
+
     this._walletConnectClient?.on('session_delete', this.onSessionDelete.bind(this))
   }
 
@@ -60,10 +62,16 @@ class HWCConnector extends HederaConnector {
   }
 
   async getConnection(): Promise<DAppSigner | null> {
-    if (!this.isWalletStateAvailable()) return null
+    const loadedExtensionMeta = (this._strategy.controller as DAppConnector).extensions.find(
+      (ex) => ex.id === this._extensionId,
+    )
 
-    this._bindEvents()
-    return this.getSignerForSession(localStorage.getItem(this._localStorageKey) as string)
+    if (this.isWalletStateAvailable() || loadedExtensionMeta?.availableInIframe) {
+      this._bindEvents()
+      return this.getSignerForSession(localStorage.getItem(this._localStorageKey) as string)
+    } else {
+      return null
+    }
   }
 
   async newConnection(): Promise<DAppSigner | null> {
