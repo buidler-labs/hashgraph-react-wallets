@@ -19,7 +19,7 @@ Full documentation page: [Hashgraph React Wallets - Docs](https://buidler-labs.g
 
 ## Running the demo app
 
-First, you need to create a `.env` file in the `demo` directory, filling in the following values:
+First, you need to rename the `sample.env` file in the `demo` directory and fill in the following values:
 
 ```
 DEMO_APP_NAME=
