@@ -4,6 +4,7 @@ export const tanstackQueryClient = new QueryClient()
 
 export { parseEther } from 'viem'
 export * from './constants'
+export * from './utils'
 export * from './hooks'
 export * from './hWBridge'
 export type * from './hWBridge/types'
