@@ -11,10 +11,10 @@ import {
 import { queryMirror } from './mirror.actions'
 import { MirrorBalancesResponse } from './types'
 import { HederaSignerType } from '../hWBridge/types'
-import { chainToNetworkName } from '../utils'
-import { PublicKey } from '@hashgraph/sdk'
+import { chainToNetworkName, compressPublicKey } from '../utils'
+import { AccountId, PublicKey, SignerSignature } from '@hashgraph/sdk'
 import { signMessage as wagmiSignMessage } from 'wagmi/actions'
-import { hexToBytes } from 'viem'
+import { hashMessage, hexToBytes, recoverPublicKey } from 'viem'
 
 export const getAccountId = async <TWallet extends HWBridgeSession>({
   wallet,
@@ -46,9 +46,12 @@ export const getPublicKey = async <TWallet extends HWBridgeSession>({
   config: Config
 }): Promise<PublicKey | null> => {
   const accountMirrorResponse = await getHederaAccountInfo<{
-    key: { _type: 'ECDSA_SECP256K1' | 'ED25519' | 'ProtobufEncoded'; key: string }
+    key: { _type: 'ECDSA_SECP256K1' | 'ED25519' | 'ProtobufEncoded'; key: string } | null
+    evm_address: string
   }>({ wallet, config })
-  return !accountMirrorResponse ? null : PublicKey.fromString(accountMirrorResponse?.key.key!)
+  if (!accountMirrorResponse || !accountMirrorResponse.key) return null
+
+  return PublicKey.fromString(accountMirrorResponse?.key.key)
 }
 
 export const getEvmAddress = async <TWallet extends HWBridgeSession>({
@@ -140,8 +143,14 @@ export const signAuthentication = async <TWallet extends HWBridgeSession>({
   wallet: TWallet
   config: Config
   message: string
-}): Promise<Uint8Array | null> => {
+}): Promise<SignerSignature | null> => {
   if (!wallet.signer) return null
+
+  const accountId = await getAccountId({ wallet, config })
+
+  if (!accountId) {
+    throw new Error('No account info available. Are you logged in?')
+  }
 
   if (wallet.connector.type === ConnectorType.HEDERA) {
     const concreteSigner = wallet.signer as HederaSignerType
@@ -149,11 +158,20 @@ export const signAuthentication = async <TWallet extends HWBridgeSession>({
       encoding: 'base64',
     })
 
-    return hederaSignatures[0].signature
+    return hederaSignatures[0]
   } else if (wallet.connector.type == ConnectorType.ETHEREUM) {
     const rawHexEncodedSignature = await wagmiSignMessage(config, { message })
 
-    return hexToBytes(rawHexEncodedSignature)
+    const rawPublicKey = await recoverPublicKey({
+      hash: hashMessage(message),
+      signature: rawHexEncodedSignature,
+    })
+
+    return new SignerSignature({
+      accountId: AccountId.fromString(accountId),
+      publicKey: PublicKey.fromBytesECDSA(compressPublicKey(rawPublicKey)),
+      signature: hexToBytes(rawHexEncodedSignature),
+    })
   }
 
   return Promise.reject(`Unsuported connector type '${wallet.connector.type}'`)
