@@ -1,6 +1,6 @@
 {
   "name": "@buidlerlabs/hashgraph-react-wallets",
-  "version": "2.4.3",
+  "version": "2.4.4",
   "description": "A lightweight library that aims to provide an easier way to interact with the hedera network from a UI perspective",
   "keywords": [
     "react",
@@ -93,6 +93,10 @@
     "@magic-ext/hedera": "^1.0.2",
     "@magic-ext/oauth": "^15.2.0",
     "@tanstack/react-query": "^5.18.1",
+    "@walletconnect/qrcode-modal": "^1.8.0",
+    "@walletconnect/types": "^2.17.0",
+    "@walletconnect/utils": "^2.17.0",
+    "@walletconnect/web3wallet": "^1.16.0",
     "magic-sdk": "^21.2.0",
     "short-uuid": "^4.2.2",
     "viem": "^2.17.4",

@@ -15,23 +15,23 @@ Simply run the following installation command using your preferred package manag
 ::: code-group
 
 ```sh [npm]
-$ npm i @buidlerlabs/hashgraph-react-wallets
+$ npm i @buidlerlabs/hashgraph-react-wallets @hashgraph/sdk
 ```
 
 ```sh [pnpm]
-$ pnpm add @buidlerlabs/hashgraph-react-wallets
+$ pnpm add @buidlerlabs/hashgraph-react-wallets @hashgraph/sdk
 ```
 
 ```sh [yarn]
-$ yarn add @buidlerlabs/hashgraph-react-wallets
+$ yarn add @buidlerlabs/hashgraph-react-wallets @hashgraph/sdk
 ```
 
 ```sh [yarn (pnp)]
-$ yarn add @buidlerlabs/hashgraph-react-wallets
+$ yarn add @buidlerlabs/hashgraph-react-wallets @hashgraph/sdk
 ```
 
 ```sh [bun]
-$ bun add @buidlerlabs/hashgraph-react-wallets
+$ bun add @buidlerlabs/hashgraph-react-wallets @hashgraph/sdk
 ```
 
 :::
