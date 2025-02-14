@@ -39,11 +39,11 @@ Then do a `npm i` in `demo` to bring in its dependencies and run `npm run demo` 
 Simply run the following installation command using your preferred package manager:
 
 ```sh
-$ npm i @buidlerlabs/hashgraph-react-wallets
+$ npm i @buidlerlabs/hashgraph-react-wallets @hashgraph/sdk
 ```
 
 ```sh
-$ yarn add @buidlerlabs/hashgraph-react-wallets
+$ yarn add @buidlerlabs/hashgraph-react-wallets @hashgraph/sdk
 ```
 
 ## Setup Context
