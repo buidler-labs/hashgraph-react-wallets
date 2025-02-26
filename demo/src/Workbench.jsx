@@ -24,6 +24,7 @@ import {
 import SDKTransactions from "./SDKTransactions";
 import StakingTest from "./StakingTest";
 import { Fragment } from "react";
+import ScheduledMaintenances from './ScheduledMaintenances'
 
 const Workbench = () => {
   const wallet = useWallet();
@@ -48,6 +49,7 @@ const Workbench = () => {
     <div>
       <span>Hedera </span>
       <ChainSwitcher />
+      <ScheduledMaintenances />
       <div style={{ display: "flex" }}>
         <div style={{ flex: 1 }}>
           <div>
