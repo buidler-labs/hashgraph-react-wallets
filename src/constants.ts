@@ -38,6 +38,7 @@ export enum HWBridgeQueryKeys {
   SIGN_AUTHENTICATION = 'signAuthentication',
   SWITCH_CHAIN = 'switchChain',
   WATCH_TRANSACTION_RECEIPT = 'watchTransactionReceipt',
+  GET_NETWORK_MAINTENANCE_STATUS = 'getNetworkMaintenanceStatus',
 }
 
 export enum HederaChainIds {
