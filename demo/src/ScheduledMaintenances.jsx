@@ -1,9 +1,9 @@
 import { useScheduledMaintenances } from '@buidlerlabs/hashgraph-react-wallets'
-import { hederaTestnet } from 'viem/chains'
+import { HederaTestnet } from '@buidlerlabs/hashgraph-react-wallets/chains'
 
 const ScheduledMaintenances = () => {
   const { data: networkMaintenances } = useScheduledMaintenances({
-    chain: hederaTestnet,
+    chain: HederaTestnet,
   })
 
   return (
