@@ -15,6 +15,7 @@ Various hooks have been coded and made available for usage:
 - [`useEvmAddress()`](/hooks/use-evm-address)
 - [`useHNS()`](/hooks/use-hns)
 - [`useHWBridge()`](/hooks/use-hw-bridge)
+- [`useScheduledMaintenances()`](/hooks/use-scheduled-maintenances)
 - [`useSwitchChain()`](/hooks/use-switch-chain)
 - [`useTokensBalance()`](/hooks/use-tokens-balance)
 - [`useWatchTransactionReceipt()`](/hooks/use-watch-transaction-receipt)
